@@ -1118,7 +1118,7 @@ function rendRel(){
   document.getElementById('rel-mod').innerHTML=tops.length?tops.map(([m,n])=>'<div class="rrow"><span class="rl">'+m+'</span><span class="rv" style="color:var(--ac)">'+n+'x</span></div>').join(''):'<div class="emp"><div class="ei">📊</div>Sem dados</div>';
   document.getElementById('rel-suc').innerHTML=[
     ['Sucatas recebidas',vf.filter(v=>v.suc).length+' un'],
-    ['Peso total',sucPeso.toFixed(1)+' kg'],
+    ['Peso total',sucPeso.toFixed(2)+' kg'],
     ['Valor total',fmt(sucVal)],
     ['Média por sucata',vf.filter(v=>v.suc).length?fmt(sucVal/vf.filter(v=>v.suc).length):'—'],
   ].map(([l,v])=>'<div class="rrow"><span class="rl">'+l+'</span><span class="rv">'+v+'</span></div>').join('');
@@ -2084,7 +2084,7 @@ function mudaTipoSucata() {
 function atualizarSaldoFornecedor(fornecedor) {
   const saldo = calcularSaldoFornecedor(fornecedor);
   
-  document.getElementById('suc-saldo-kg').textContent = saldo.kg.toFixed(1) + ' kg';
+  document.getElementById('suc-saldo-kg').textContent = saldo.kg.toFixed(2) + ' kg';
   document.getElementById('suc-saldo-rs').textContent = 'R$ ' + saldo.rs.toFixed(2);
   document.getElementById('suc-info-saldo').style.display = '';
 }
@@ -2152,7 +2152,7 @@ function svMovSucata() {
   if (tipo === 'saida') {
     const saldo = calcularSaldoFornecedor(fornecedor);
     if (kg > saldo.kg) {
-      if (!confirm(`Saldo atual: ${saldo.kg.toFixed(1)} kg\nVocê está dando saída de ${kg} kg.\nIsso ficará negativo. Continuar?`)) {
+      if (!confirm(`Saldo atual: ${saldo.kg.toFixed(2)} kg\nVocê está dando saída de ${kg} kg.\nIsso ficará negativo. Continuar?`)) {
         return;
       }
     }
@@ -2229,9 +2229,9 @@ function rendSucata() {
   });
   
   // Atualizar cards de resumo
-  document.getElementById('total-kg-devedor').textContent = totalKgDevedor.toFixed(1);
+  document.getElementById('total-kg-devedor').textContent = totalKgDevedor.toFixed(2);
   document.getElementById('total-rs-devedor').textContent = 'R$ ' + totalRsDevedor.toFixed(2);
-  document.getElementById('total-comprada-mes').textContent = totalCompradaMes.toFixed(1) + ' kg';
+  document.getElementById('total-comprada-mes').textContent = totalCompradaMes.toFixed(2) + ' kg';
   
   // Renderizar saldo por fornecedor
   rendSaldoFornecedores(fornecedores);
@@ -2265,7 +2265,7 @@ function rendSaldoFornecedores(fornecedores) {
           <div style="font-size:12px;color:var(--t3)">Saldo atual</div>
         </div>
         <div style="text-align:right">
-          <div style="font-size:18px;font-weight:700;color:${saldo.kg > 0 ? 'var(--or)' : (saldo.kg < 0 ? 'var(--gr)' : 'var(--t2)')}">${saldo.kg > 0 ? '+' : ''}${saldo.kg.toFixed(1)} kg</div>
+          <div style="font-size:18px;font-weight:700;color:${saldo.kg > 0 ? 'var(--or)' : (saldo.kg < 0 ? 'var(--gr)' : 'var(--t2)')}">${saldo.kg > 0 ? '+' : ''}${saldo.kg.toFixed(2)} kg</div>
           ${saldo.rs !== 0 ? `<div style="font-size:14px;font-weight:600;color:${saldo.rs > 0 ? 'var(--re)' : 'var(--gr)'}">R$ ${saldo.rs > 0 ? '+' : ''}${saldo.rs.toFixed(2)}</div>` : ''}
         </div>
       </div>
@@ -2324,7 +2324,7 @@ function rendHistoricoSucata() {
           </div>
           <div style="font-size:13px;color:var(--t2)">
             📅 ${dataFormatada}
-            ${m.kg > 0 ? ` • ⚖️ ${m.kg.toFixed(1)} kg` : ''}
+            ${m.kg > 0 ? ` • ⚖️ ${m.kg.toFixed(2)} kg` : ''}
             ${m.valor > 0 ? ` • 💵 R$ ${m.valor.toFixed(2)}` : ''}
           </div>
           ${m.obs ? `<div style="font-size:12px;color:var(--t3);margin-top:5px;font-style:italic">${m.obs}</div>` : ''}
